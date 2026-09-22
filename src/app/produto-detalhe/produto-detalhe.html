@@ -2,6 +2,11 @@
  @if(produto()) {   
     <p>Nome:  {{produto()?.nome}}</p>
     <p>Preço: {{produto()?.preco}}</p>
+
+    <input type="button" 
+           value="Adicionar ao carrinho"
+           (click)="adicionar()">
  } @else {
     <p>Produto não encontrado!</p>
  } 
+

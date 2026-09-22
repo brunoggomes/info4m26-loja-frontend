@@ -1,6 +1,8 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { LojaService } from '../services/loja-service';
 import { Produto } from '../models/produto';
+import { CarrinhoService } from '../services/carrinho-service';
+import { Item } from '../models/item';
 
 @Component({
   imports: [],
@@ -11,9 +13,9 @@ import { Produto } from '../models/produto';
 export class ProdutoDetalhe implements OnInit {
   id = input.required<number>();
   produto = signal<Produto | undefined>(undefined)
- 
-  readonly #lojaService = inject(LojaService)
 
+  readonly #lojaService = inject(LojaService)
+  readonly #carrinho = inject(CarrinhoService)
   ngOnInit(): void {
     this.detalharProduto()
   }
@@ -22,5 +24,17 @@ export class ProdutoDetalhe implements OnInit {
     this.#lojaService.obterProdutoPorId(this.id()).subscribe(prod => {
       this.produto.set(prod)
     })
+  }
+
+  adicionar() {
+    if (this.produto) {
+      let it: Item = {
+        id: this.produto()?.id,
+        produto: this.produto(),
+        quantidade: 1
+      }
+      this.#carrinho.adicionarItem(it)
+    }
+    console.log(this.#carrinho.itens())
   }
 }

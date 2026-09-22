@@ -1,0 +1,12 @@
+<div class="header">
+    <h1>Loja virtual</h1>
+    <app-carrinho></app-carrinho>
+</div>
+
+@for(p of produtos(); track p.id) {
+    <p>{{p.nome}}</p>
+    <input type="button" 
+           value="Adicionar ao carrinho"
+           (click)="adicionar(p)">
+
+}
