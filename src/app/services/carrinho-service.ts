@@ -80,5 +80,6 @@ export class CarrinhoService {
         if (itens) {
             return JSON.parse(itens)
         }
--    }
+        return null
+    }
 }
