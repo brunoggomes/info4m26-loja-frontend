@@ -18,32 +18,31 @@ export class CarrinhoService {
  
     adicionarItem(it: Item): boolean {
         if (it) {
-            let adicionados = this.#_itens()
-            let existe = false
-            adicionados.forEach(item => {
-                if (item.produto === it.produto) {
-                    this.aumentarQuantidade(it)
-                    existe = true
-                }
-            })
-
-            if (!existe) {
-                this.#_itens.update(itens => [...itens, it]);
-                return true
+            if (this.itemAdicionado(it)) {
+                this.aumentarQuantidade(it)
+                return false
             }
+       
+            this.#_itens.update(itens => [...itens, it]); 
         }
-        return false
+
+        return true
     }
+
+    itemAdicionado(item: Item): boolean {
+        return this.#_itens().some(it => 
+            it.produto?.id === item.produto?.id)
+    }
+
     aumentarQuantidade(it: Item): boolean {
         if (!it) {
             return false;
         }
-
         let encontrado = false;
 
         this.#_itens.update(itens =>
             itens.map(item => {
-                if (item.produto === it.produto) {
+                if (item.produto?.id === it.produto?.id) {
                     encontrado = true;
 
                     return {

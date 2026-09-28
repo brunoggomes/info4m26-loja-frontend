@@ -27,12 +27,8 @@ export class ProdutoDetalhe implements OnInit {
   }
 
   adicionar() {
-    if (this.produto) {
-      let it: Item = {
-        id: this.produto()?.id,
-        produto: this.produto(),
-        quantidade: 1
-      }
+    if (this.produto() != undefined) {
+      let it: Item = new Item(this.produto(), 1)
       this.#carrinho.adicionarItem(it)
     }
     console.log(this.#carrinho.itens())

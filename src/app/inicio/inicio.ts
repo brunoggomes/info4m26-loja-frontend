@@ -25,11 +25,8 @@ export class Inicio {
 
   adicionar(p: Produto) {
     if (p) {
-      let it: Item = {
-        id: p.id,
-        produto: p,
-        quantidade: 1
-      }
+      let it: Item = new Item (p, 1)
+      
       this.#carrinho.adicionarItem(it)
       console.log(this.#carrinho.itens())
       console.log(this.#carrinho.qtdItens())

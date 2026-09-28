@@ -1,7 +1,12 @@
 import { Produto } from "./produto"
 
-export type Item = {
-    id?: number
-    produto?: Produto
+export class Item {
+    produto: Produto | undefined
     quantidade: number
+
+    constructor(prod: Produto |undefined, 
+                qtd: number) {
+        this.produto = prod
+        this.quantidade = qtd
+    }
 }
