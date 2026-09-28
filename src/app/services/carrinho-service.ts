@@ -15,6 +15,13 @@ export class CarrinhoService {
         });
         return quant
     });
+
+    constructor() {
+        let itensSessao = this.recuperarSessao()
+        if(itensSessao) {
+            this.#_itens.set(itensSessao)
+        }
+    }
  
     adicionarItem(it: Item): boolean {
         if (it) {
@@ -23,6 +30,7 @@ export class CarrinhoService {
                 return false
             }
             this.#_itens.update(itens => [...itens, it]); 
+            this.salvarSessao()
         }
 
         return true
@@ -54,6 +62,23 @@ export class CarrinhoService {
             })
         );
 
+        this.salvarSessao()
         return encontrado;
     }
+
+
+    //Persiste o objeto de carrinho na sessão
+    salvarSessao() {
+        //Salva na session storage
+        localStorage.setItem(
+            'CARRINHO_LOJA_IFRN', 
+            JSON.stringify(this.#_itens()))
+    }
+
+    recuperarSessao() {
+        let itens = localStorage.getItem('CARRINHO_LOJA_IFRN')
+        if (itens) {
+            return JSON.parse(itens)
+        }
+-    }
 }
