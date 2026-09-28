@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-between;
     gap: 8px;
-    width: 80px;
-    padding: 4px;
+    min-width: 48px;
+    padding: 4px 8px;
     background-color: #000;
     color: #fff;
 }

@@ -22,7 +22,6 @@ export class CarrinhoService {
                 this.aumentarQuantidade(it)
                 return false
             }
-       
             this.#_itens.update(itens => [...itens, it]); 
         }
 
